@@ -2,64 +2,74 @@
 
 ## Overview
 
-This project implements a cloud-native ToDo application deployed on a Kubernetes cluster using Helm charts. It demonstrates infrastructure automation, Kubernetes resource management, and application packaging using Helm.
+This project implements a cloud-native ToDo application deployed on a Kubernetes cluster using Helm charts. It demonstrates infrastructure automation, Kubernetes resource management, and Helm-based application packaging.
 
-The system consists of:
-- ToDo application deployed via Helm
+The application stack includes:
+
+- ToDo web application
 - MySQL database deployed as a Helm subchart
-- Fully configurable Kubernetes resources via values.yaml
-- Automated deployment using kind cluster
+- Kubernetes Persistent Volumes (PV/PVC)
+- Horizontal Pod Autoscaler (HPA)
+- Configurable deployment via Helm values
+- Automated deployment using a bootstrap script
 
 ---
 
 ## Architecture
 
-- Kubernetes cluster (kind)
-- Helm-based application deployment
-- ToDo application (frontend + backend)
-- MySQL database (Helm subchart)
-- Persistent Volumes (PV/PVC)
+The project uses a Kubernetes-based architecture with Helm-managed resources.
+
+Components:
+
+- Kubernetes cluster (`kind`)
+- Helm charts for deployment management
+- Django ToDo application
+- MySQL StatefulSet
+- Persistent storage (PV/PVC)
 - Horizontal Pod Autoscaler (HPA)
+- RBAC and Service Accounts
 - Configurable secrets and environment variables
 
 ---
 
 ## Features
 
-- Helm-based deployment of full application stack
+- Helm-based deployment of the entire application stack
 - Separate MySQL subchart with dependency management
-- Fully configurable values.yaml for all resources
-- Secrets managed via Helm templating (range function)
-- Resource limits and requests configurable per environment
+- Fully configurable `values.yaml`
+- Kubernetes secrets managed through Helm templating
+- Configurable CPU and memory limits/requests
 - Node affinity and tolerations support
-- HPA for autoscaling based on CPU and memory
-- Persistent storage configuration via Helm
-- Automated deployment using bootstrap script
+- Horizontal Pod Autoscaler configuration
+- Persistent storage configuration
+- Automated deployment workflow using `bootstrap.sh`
+- Infrastructure organized in reusable Kubernetes manifests
 
 ---
 
 ## Tech Stack
 
-- Kubernetes (kind cluster)
+- Kubernetes (`kind`)
 - Helm 3
 - Docker
-- Bash scripting
+- Django
 - MySQL
+- Bash scripting
+- YAML
 - Linux environment
 
 ---
 
-## Deployment
+## Project Structure
 
-### Prerequisites
-
-- kind cluster installed
-- kubectl installed
-- helm installed
-
----
-
-### Deploy Application
-
-```bash
-./bootstrap.sh
+```text
+.
+├── .infrastructure/
+├── helm-chart/
+│   └── todoapp/
+│       └── charts/mysql/
+├── src/
+├── bootstrap.sh
+├── cluster.yml
+├── README.md
+└── docs/
